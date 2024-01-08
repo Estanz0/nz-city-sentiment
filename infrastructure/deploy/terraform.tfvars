@@ -1,5 +1,4 @@
 # General
-project_id = "nzsent"
 location   = "australiaeast"
 
 # Storage Account
