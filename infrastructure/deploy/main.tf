@@ -27,6 +27,11 @@ resource "azurerm_storage_account" "default" {
   account_replication_type = var.st_account_replication_type
 }
 
+resource "azurerm_storage_table" "default" {
+  name                 = "tfstate"
+  storage_account_name = azurerm_storage_account.default.name
+}
+
 # Github Secrets / Variables
 data "github_repository" "repo" {
   full_name = "${var.gh_repo_owner}/${var.gh_repo_name}"
