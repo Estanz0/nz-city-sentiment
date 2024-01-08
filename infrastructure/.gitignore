@@ -1,0 +1,4 @@
+plan.local.sh
+AZURE_CREDS.json
+
+*.terraform*
