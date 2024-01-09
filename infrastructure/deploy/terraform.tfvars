@@ -1,5 +1,5 @@
 # General
-location   = "australiaeast"
+location = "australiaeast"
 
 # Storage Account
 st_account_tier             = "Standard"
