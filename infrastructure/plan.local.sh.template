@@ -22,16 +22,25 @@ else
 fi
 
 
+
 export ARM_CLIENT_ID="your_client_id"
 export ARM_CLIENT_SECRET="your_client_secret"
 export ARM_SUBSCRIPTION_ID="your_subscription_id"
 export ARM_TENANT_ID="your_tenant_id"
 export ARM_ACCESS_KEY="tfstate_storage_account_key"
 
-terraform_dir="deploy"
-terraform_workspace=$env$project
+export GITHUB_TOKEN="pat_token"
 
-terraform init -chdir=$terraform_dir
-terraform fmt -chdir=$terraform_dir
-terraform workspace select $terraform_workspace -chdir=$terraform_dir
-terraform plan -chdir=$terraform_dir -var client_id=$ARM_CLIENT_ID -var client_secret=$ARM_CLIENT_SECRET -var subscription_id=$ARM_SUBSCRIPTION_ID -var tenant_id=$ARM_TENANT_ID -out $env.tfplan
+terraform_dir='deploy'
+echo "Terraform directory: $terraform_dir"
+
+terraform_workspace=$env$project
+echo "Terraform workspace: $terraform_workspace"
+
+gh_repo_owner="Estanz0"
+gh_repo_name="nz-city-sentiment"
+
+terraform -chdir=$terraform_dir init
+terraform -chdir=$terraform_dir fmt
+terraform -chdir=$terraform_dir workspace select -or-create=true $terraform_workspace
+terraform -chdir=$terraform_dir plan -input=false -var-file $env.tfvars -var project_id=$project -var env=$env -var client_id=$ARM_CLIENT_ID -var client_secret=$ARM_CLIENT_SECRET -var subscription_id=$ARM_SUBSCRIPTION_ID -var tenant_id=$ARM_TENANT_ID -var gh_repo_owner=$gh_repo_owner -var gh_repo_name=$gh_repo_name
