@@ -32,6 +32,12 @@ resource "azurerm_storage_table" "default" {
   storage_account_name = azurerm_storage_account.default.name
 }
 
+resource "azurerm_role_assignment" "default" {
+  scope                = azurerm_storage_account.default.id
+  role_definition_name = "Storage Table Data Contributor"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
+
 # Github Secrets / Variables
 data "github_repository" "repo" {
   full_name = "${var.gh_repo_owner}/${var.gh_repo_name}"
