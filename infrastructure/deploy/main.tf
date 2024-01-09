@@ -37,14 +37,14 @@ resource "azurerm_storage_queue" "default" {
   storage_account_name = azurerm_storage_account.default.name
 }
 
-resource "azurerm_role_assignment" "default" {
+resource "azurerm_role_assignment" "tables" {
   scope                = azurerm_storage_account.default.id
   role_definition_name = "Storage Table Data Contributor"
   principal_id         = data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_role_assignment" "queue" {
-  scope                = azurerm_storage_queue.default.id
+  scope                = azurerm_storage_account.default.id
   role_definition_name = "Storage Queue Data Contributor"
   principal_id         = data.azurerm_client_config.current.object_id
 }
