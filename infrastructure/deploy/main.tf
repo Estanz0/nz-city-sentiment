@@ -38,8 +38,8 @@ data "github_repository" "repo" {
 }
 
 resource "github_actions_environment_variable" "action_variable_fa_name" {
-  repository       = data.github_repository.repo.name
-  environment      = var.env
-  variable_name    = "STORAGE_ACCOUNT_NAME"
-  value            = azurerm_storage_account.default.name
+  repository    = data.github_repository.repo.name
+  environment   = var.env
+  variable_name = "STORAGE_ACCOUNT_NAME"
+  value         = azurerm_storage_account.default.name
 }
