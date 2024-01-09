@@ -37,7 +37,7 @@ data "github_repository" "repo" {
   full_name = "${var.gh_repo_owner}/${var.gh_repo_name}"
 }
 
-resource "github_actions_environment_variable" "action_variable_fa_name" {
+resource "github_actions_environment_variable" "action_variable_st_name" {
   repository    = data.github_repository.repo.name
   environment   = var.env
   variable_name = "STORAGE_ACCOUNT_NAME"
