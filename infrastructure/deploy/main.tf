@@ -27,8 +27,13 @@ resource "azurerm_storage_account" "default" {
   account_replication_type = var.st_account_replication_type
 }
 
-resource "azurerm_storage_table" "default" {
+resource "azurerm_storage_table" "sentiment" {
   name                 = "sentiment"
+  storage_account_name = azurerm_storage_account.default.name
+}
+
+resource "azurerm_storage_table" "processedposts" {
+  name                 = "processedposts"
   storage_account_name = azurerm_storage_account.default.name
 }
 
