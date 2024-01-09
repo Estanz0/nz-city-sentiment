@@ -28,7 +28,7 @@ resource "azurerm_storage_account" "default" {
 }
 
 resource "azurerm_storage_table" "default" {
-  name                 = "tfstate"
+  name                 = "sentiment"
   storage_account_name = azurerm_storage_account.default.name
 }
 
@@ -37,9 +37,9 @@ data "github_repository" "repo" {
   full_name = "${var.gh_repo_owner}/${var.gh_repo_name}"
 }
 
-# resource "github_actions_environment_variable" "action_variable_fa_name" {
-#   repository       = data.github_repository.repo.name
-#   environment      = var.env
-#   variable_name    = "FUNCTION_APP_NAME"
-#   value            = azurerm_linux_function_app.default.name
-# }
+resource "github_actions_environment_variable" "action_variable_fa_name" {
+  repository       = data.github_repository.repo.name
+  environment      = var.env
+  variable_name    = "STORAGE_ACCOUNT_NAME"
+  value            = azurerm_storage_account.default.name
+}
